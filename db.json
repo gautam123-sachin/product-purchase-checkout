@@ -1,0 +1,263 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Product 1",
+      "price": 19.99,
+      "review": "4.5 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 2,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 3,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 4,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 5,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 6,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 7,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 8,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 9,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 10,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 11,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 12,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    },
+    {
+      "id": 13,
+      "name": "Product 2",
+      "price": 24.99,
+      "review": "5.0 stars",
+      "otherInfo": "Lorem ipsum...",
+      "image": "images/img1.png",
+      "checkoutStarted": false
+    }
+  ],
+  "customer": [
+    {
+      "firstName": "sdbh",
+      "lastName": "bsijhsdi",
+      "email": "bsdahisb@ngjvotej",
+      "phone": "wjsflkjeioj",
+      "id": 1
+    },
+    {
+      "firstName": "dasksjp",
+      "lastName": "kmvkdsf",
+      "email": "kdslfkspok@ewk",
+      "phone": "ksdfkksop",
+      "id": 2
+    },
+    {
+      "firstName": "svdsvsdfvfs",
+      "lastName": "dv",
+      "email": "dfwef@wfiu",
+      "phone": "egvegr",
+      "id": 3
+    },
+    {
+      "firstName": "fddf",
+      "lastName": "gfr",
+      "email": "gfbrt@wefef",
+      "phone": "gbrf",
+      "id": 4
+    },
+    {
+      "firstName": "   ",
+      "lastName": "   ",
+      "email": "wf-ow@ewd",
+      "phone": "   ",
+      "id": 5
+    },
+    {
+      "firstName": "  dkfjel",
+      "lastName": "dvdf",
+      "email": "dsfnsj@sdfjkheiur",
+      "phone": "snvsdjkl",
+      "id": 6
+    },
+    {
+      "firstName": "     smndbbsj",
+      "lastName": "  nbnmsndj",
+      "email": "sachin@gmail.com",
+      "phone": "6239443996",
+      "id": 7
+    },
+    {
+      "firstName": "sachin ",
+      "lastName": "Gautam",
+      "email": "Gautam@gmail.com",
+      "phone": "6239443996",
+      "id": 8
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "sachingautam6239@gmail.com",
+      "phone": "6239443996",
+      "id": 9
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "sachingautam6239@gmail.com",
+      "phone": "6239443996",
+      "id": 10
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "sachingautam6239@gmail.com",
+      "phone": "6239443996",
+      "id": 11
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "test8427test@gmail.com",
+      "phone": "6239443996",
+      "id": 12
+    },
+    {
+      "firstName": "Sachin",
+      "lastName": "Solutions",
+      "email": "sg9769332@gmail.com",
+      "phone": "6239443996",
+      "id": 13
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "sg9769332@gmail.com",
+      "phone": "6239443996",
+      "id": 14
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "sachingautam6239@gmail.com",
+      "phone": "6239443996",
+      "id": 15
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "sachingautam6239@gmail.com",
+      "phone": "6239443996",
+      "id": 16
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "test8427test@gmail.com",
+      "phone": "6239443996",
+      "id": 17
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "test8427test@gmail.com",
+      "phone": "6239443996",
+      "id": 18
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "test8427test@gmail.com",
+      "phone": "6239443996",
+      "id": 19
+    },
+    {
+      "firstName": "WebMobi",
+      "lastName": "Solutions",
+      "email": "test8427test@gmail.com",
+      "phone": "6239443996",
+      "id": 20
+    }
+  ]
+}
