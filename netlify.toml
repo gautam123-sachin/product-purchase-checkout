@@ -1,0 +1,14 @@
+[build]
+command = "npm run build" # Specify the build command for your React app
+publish = "build" # Specify the directory where your built app resides
+
+[dev]
+publish = "build"
+
+[context.production]
+command = "npm start" # Specify the command to run the JSON server in production
+target = "node"
+
+[context.develop]
+command = "npm start" # Specify the command to run the JSON server in development
+target = "node"
