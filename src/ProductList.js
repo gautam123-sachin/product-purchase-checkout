@@ -17,7 +17,9 @@ export default function ProductList() {
   const { dispatch } = useCart();
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch(
+      "https://my-json-server.typicode.com/gautam123-sachin/products/products"
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
