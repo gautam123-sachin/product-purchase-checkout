@@ -39,7 +39,6 @@ export default function ProductList() {
   const addToCart = (product) => {
     dispatch({ type: "ADD_TO_CART", product: product });
     setItemId((prev) => [...prev, product.id]);
-    localStorage.setItem(`cartItem_${product.id}`, "added");
   };
 
   return (
@@ -105,10 +104,7 @@ export default function ProductList() {
                   aria-label={`Buy ${product.name}`}
                   className="buy-button"
                   // Disable the button if checkout has started
-                  disabled={
-                    itemId.includes(product.id) ||
-                    localStorage.getItem(`cartItem_${product.id}`) === "added"
-                  }
+                  disabled={itemId.includes(product.id)}
                   onClick={() => addToCart(product)}
                 >
                   <ShoppingCartIcon />
