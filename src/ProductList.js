@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
-import Button from '@mui/joy/Button';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import React, { useEffect, useState } from "react";
+import AspectRatio from "@mui/joy/AspectRatio";
+import Button from "@mui/joy/Button";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+import Typography from "@mui/joy/Typography";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-import './ProductList.css';
-import { useCart } from './CartContext';
+import "./ProductList.css";
+import { useCart } from "./CartContext";
 
 export default function ProductList() {
   const [data, setData] = useState([]);
@@ -17,10 +17,10 @@ export default function ProductList() {
   const { dispatch } = useCart();
 
   useEffect(() => {
-    fetch('http://localhost:5000/products')
+    fetch("http://localhost:5000/products")
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
@@ -35,10 +35,9 @@ export default function ProductList() {
   }, []);
 
   const addToCart = (product) => {
-
-    dispatch({ type: 'ADD_TO_CART', product: product });
+    dispatch({ type: "ADD_TO_CART", product: product });
     setItemId((prev) => [...prev, product.id]);
-    localStorage.setItem(`cartItem_${product.id}`, 'added');
+    localStorage.setItem(`cartItem_${product.id}`, "added");
   };
 
   return (
@@ -58,10 +57,18 @@ export default function ProductList() {
               className="product-card"
             >
               <div className="card-header">
-                <Typography level="title-lg" sx={{ fontWeight: 600 }} className="product-title">
+                <Typography
+                  level="title-lg"
+                  sx={{ fontWeight: 600 }}
+                  className="product-title"
+                >
                   {product.name}
                 </Typography>
-                <Typography level="body-sm" sx={{ fontWeight: 600 }} className="product-date">
+                <Typography
+                  level="body-sm"
+                  sx={{ fontWeight: 600 }}
+                  className="product-date"
+                >
                   April 24 to May 02, 2021
                 </Typography>
               </div>
@@ -79,7 +86,12 @@ export default function ProductList() {
                   <Typography level="body-xs" sx={{ fontWeight: 600 }}>
                     Total price:
                   </Typography>
-                  <Typography fontSize="lg" fontWeight="lg" sx={{ fontWeight: 600 }} className="product-price">
+                  <Typography
+                    fontSize="lg"
+                    fontWeight="lg"
+                    sx={{ fontWeight: 600 }}
+                    className="product-price"
+                  >
                     ${product.price}
                   </Typography>
                 </div>
@@ -91,7 +103,10 @@ export default function ProductList() {
                   aria-label={`Buy ${product.name}`}
                   className="buy-button"
                   // Disable the button if checkout has started
-                  disabled={itemId.includes(product.id) || localStorage.getItem(`cartItem_${product.id}`) === 'added'}
+                  disabled={
+                    itemId.includes(product.id) ||
+                    localStorage.getItem(`cartItem_${product.id}`) === "added"
+                  }
                   onClick={() => addToCart(product)}
                 >
                   <ShoppingCartIcon />
