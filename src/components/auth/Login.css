@@ -1,0 +1,7 @@
+/* In your CSS file or style tag */
+@media (min-width: 1200px) {
+    .css-1oqqzyl-MuiContainer-root {
+      max-width: 850px;
+    }
+  }
+  

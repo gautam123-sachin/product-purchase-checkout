@@ -7,7 +7,7 @@ import Typography from "@mui/joy/Typography";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import "./ProductList.css";
-import { useCart } from "./CartContext";
+import { useCart } from "../../CartContext";
 
 export default function ProductList() {
   const [data, setData] = useState([]);

@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import { APP_NAME, NAV_LINKS } from '../../constants';
+
 
 function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -20,9 +22,6 @@ function Header() {
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
-
-  // Define the AppBar title based on the mobile view
-  const appBarTitle = "product-purchase-checkout";
 
   return (
     <div>
@@ -35,27 +34,22 @@ function Header() {
           </Hidden>
 
           <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-            {appBarTitle}
+            {APP_NAME}
           </Typography>
-
           <Hidden smDown>
-            <MuiLink
-              component={Link}
-              to="/product-list"
-              color="inherit"
-              style={{ marginRight: 20, textDecoration: "none" }}
-            >
-              Product List
-            </MuiLink>
-            <MuiLink
-              component={Link}
-              to="/checkout"
-              color="inherit"
-              style={{ marginRight: 20, textDecoration: "none" }}
-            >
-              Checkout Page
-            </MuiLink>
+            {NAV_LINKS.map((link) => (
+              <MuiLink
+                key={link.to}
+                component={Link}
+                to={link.to}
+                color="inherit"
+                style={{ marginRight: 20, textDecoration: "none" }}
+              >
+                {link.label}
+              </MuiLink>
+            ))}
           </Hidden>
+
         </Toolbar>
       </AppBar>
 

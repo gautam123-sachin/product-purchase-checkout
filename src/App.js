@@ -1,9 +1,12 @@
+// App.js
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Header from './Header'; // Import the Header component
-import ProductListing from './ProductList';
+import Header from './components/common/Header';
+import ProductListing from './components/product/ProductList';
 import CheckoutPage from './Checkoutpage';
 import ReviewPage from './ReviewPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 import { CartProvider, CustomerInfoProvider } from './CartContext';
 
 function App() {
@@ -11,16 +14,16 @@ function App() {
     <div>
       <CartProvider>
         <CustomerInfoProvider>
-        <Header /> {/* Use the Header component here */}
-        <Routes>
-          <Route path="/*" element={<ProductListing />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/review" element={<ReviewPage />} />
-        </Routes>
+          <Header />
+          <Routes>
+            <Route path="/*" element={<ProductListing />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/review" element={<ReviewPage />} />
+            <Route path="/login" element={<LoginPage />} /> 
+            <Route path='/signup' element={<SignUpPage />} />
+          </Routes>
         </CustomerInfoProvider>
-      
       </CartProvider>
-
     </div>
   );
 }
