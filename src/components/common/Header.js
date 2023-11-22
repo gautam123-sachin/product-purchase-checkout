@@ -13,15 +13,43 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import { APP_NAME, NAV_LINKS } from '../../constants';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useSelector } from "react-redux";
+import { APP_NAME } from "../../constants";
 
+import { selectIsAuthenticated } from "../../context/slices/authSlices";
 
 function Header() {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  console.log(isAuthenticated);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
+
+  const getDynamicNavLinks = () => {
+    if (isAuthenticated) {
+      return [
+        { to: "/", label: "Home" },
+        { to: "/product-list", label: "Product List" },
+        { to: "/checkout", label: "cart" },
+        { to: "/cart", label: <ShoppingCartIcon /> },
+        { to: "/profile", label: "Profile" }, // Change to the user profile link
+      ];
+    } else {
+      return [
+        { to: "/", label: "Home" },
+        { to: "/product-list", label: "Product List" },
+        { to: "/checkout", label: "cart" },
+        { to: "/cart", label: <ShoppingCartIcon /> },
+        { to: "/login", label: "Login" },
+      ];
+    }
+  };
+
+  const nav_links = getDynamicNavLinks();
 
   return (
     <div>
@@ -37,7 +65,7 @@ function Header() {
             {APP_NAME}
           </Typography>
           <Hidden smDown>
-            {NAV_LINKS.map((link) => (
+            {nav_links.map((link) => (
               <MuiLink
                 key={link.to}
                 component={Link}
@@ -49,7 +77,6 @@ function Header() {
               </MuiLink>
             ))}
           </Hidden>
-
         </Toolbar>
       </AppBar>
 
