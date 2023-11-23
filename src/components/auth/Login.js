@@ -1,112 +1,153 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  Typography,
   TextField,
-  Button,
-  Container,
-  Paper,
-  Grid,
-  FormControlLabel,
-  Checkbox,
+  InputAdornment,
+  IconButton,
   Link as MuiLink,
-} from '@mui/material';
-import { Link } from "react-router-dom";
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { GoogleLogin } from "react-google-login";
+import { useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+
+import { setUser } from "../../context/slices/authSlices";
+
+import "./Login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    if (email && password) {
-      console.log('Login successful!');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const responseGoogle = (response) => {
+    console.log(response);
+    if (response.error === "popup_closed_by_user") {
+      // Handle the case when the user closes the Google login popup
+      console.log("Google login popup closed by user.");
+    } else if (response.profileObj) {
+      // Handle successful Google login
+      dispatch(
+        setUser({
+          firstName: response.profileObj.givenName,
+          lastName: response.profileObj.familyName,
+          email: response.profileObj.email,
+          googleId: response.profileObj.googleId,
+          imageUrl: response.profileObj.imageUrl,
+        })
+      );
+
+      // Redirect to the home page
+      navigate("/");
     } else {
-      setError('Please enter both email and password.');
+      // Handle other cases or errors
+      console.log("Google login failed. User information not available.");
     }
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper elevation={3} style={{ padding: 20, marginTop: 20 }}>
-        <Typography variant="h5" align="center">
-          Login
-        </Typography>
-        <form>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+    <div className="box">
+      <div className="login-bar">
+        <div className="overlap">
+          <div className="text-wrapper">Login In</div>
+          <div className="email">
+            <div>
               <TextField
+                label="Email address"
                 fullWidth
-                label="Email"
                 variant="outlined"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </Grid>
-            <Grid item xs={12}>
+            </div>
+          </div>
+          <div className="pass">
+            <div>
               <TextField
-                fullWidth
                 label="Password"
-                type="password"
+                fullWidth
                 variant="outlined"
+                type={showPassword ? "text" : "password"}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={rememberMe}
-                    onChange={() => setRememberMe(!rememberMe)}
-                  />
-                }
-                label="Remember Me"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Link href="#" variant="body2" underline="none" style={{textDecoration: 'none'}}>
-                Forgot Password?
-              </Link>
-            </Grid>
-          </Grid>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={handleLogin}
-            style={{ marginTop: 20 }}
-          >
-            Login
-          </Button>
-        </form>
-        {error && (
-          <Typography variant="body2" color="error" align="center">
-            {error}
-          </Typography>
-        )}
-        <Grid container justifyContent="flex-end" style={{ marginTop: 10 }}>
-          <Grid item>
-            <Typography variant="body2" style={{ textDecoration: 'none' }}>
-              Don't have an account?{' '}
-              {/* <Link to="/signup" variant="body2" underline="none">
-                Sign Up
-              </Link> */}
-              <MuiLink
-                component={Link}
-                to='/signup'
-                color="inherit"
-                variant="body2"
-                style={{ marginRight: 20, textDecoration: "none" }}
+            </div>
+          </div>
+          <div className="sign-in">
+            <div>
+              <button
+                className="div-wrapper"
+                style={{
+                  border: "none",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  color: "#0000004c",
+                }}
               >
-                 Sign Up
-              </MuiLink>
-            </Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+                Login
+              </button>
+            </div>
+          </div>
+          <div className="facebook">
+            <img
+              className="subtract"
+              alt="Subtract"
+              src="https://c.animaapp.com/H3Z2TodG/img/subtract.svg"
+            />
+          </div>
+
+          <GoogleLogin
+            clientId="707346013852-oh7c9opj9883ejgh713e4tvubaa5mk9n.apps.googleusercontent.com"
+            buttonText="Sign Up with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            render={(renderProps) => (
+              <img
+                className="google"
+                alt="Google"
+                src="https://c.animaapp.com/H3Z2TodG/img/google.svg"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              />
+            )}
+          />
+          <div className="text-wrapper-3">
+            {" "}
+            <MuiLink
+              to="/signup"
+              component={Link}
+              style={{ textDecoration: "none" }}
+            >
+              Sign up
+            </MuiLink>
+          </div>
+          <div className="text-wrapper-4">forget password</div>
+        </div>
+      </div>
+    </div>
   );
 };
-
 export default Login;

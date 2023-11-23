@@ -5,16 +5,19 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addToCart, selectCartItems } from "../../context/slices/cartSlice";
 
 import "./ProductList.css";
-import { useCart } from "../../CartContext";
 
 export default function ProductList() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [itemId, setItemId] = useState([]);
 
-  const { dispatch } = useCart();
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
   useEffect(() => {
     fetch(
@@ -36,10 +39,12 @@ export default function ProductList() {
       });
   }, []);
 
-  const addToCart = (product) => {
-    dispatch({ type: "ADD_TO_CART", product: product });
+  const handleAddToCart = (product) => {
+    // dispatch({ type: "ADD_TO_CART", product: product });
+    dispatch(addToCart(product));
     setItemId((prev) => [...prev, product.id]);
   };
+  console.log("cartItems", cartItems);
 
   return (
     <>
@@ -105,7 +110,7 @@ export default function ProductList() {
                   className="buy-button"
                   // Disable the button if checkout has started
                   disabled={itemId.includes(product.id)}
-                  onClick={() => addToCart(product)}
+                  onClick={() => handleAddToCart(product)}
                 >
                   <ShoppingCartIcon />
                 </Button>

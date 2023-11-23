@@ -1,7 +1,212 @@
-/* In your CSS file or style tag */
-@media (min-width: 1200px) {
-    .css-1oqqzyl-MuiContainer-root {
-      max-width: 850px;
-    }
+/* Add these styles to your Login.css file */
+
+.box {
+  width: 512px;
+  margin: 0 auto; /* Center the box horizontally */
+  min-width: 300px; /* Set a minimum width for smaller screens */
+  max-width: 800px; /* Set a maximum width for larger screens */
+  min-height: 300px; /* Set a minimum height for smaller screens */
+  max-height: 600px; /* Set a maximum height for larger screens */
+}
+
+.login-bar {
+  padding: 20px; /* Add padding for better visual appearance */
+}
+
+.text-wrapper {
+  font-size: 24px; /* Adjust font size for better readability on larger screens */
+}
+
+.email,
+.pass {
+  margin-bottom: 10px; /* Add spacing between input fields for better visual appearance */
+}
+
+/* Media query for mobile screens */
+@media (max-width: 600px) {
+  .box {
+    width: 100%; /* Make the box full width for small screens */
+    max-width: none; /* Remove the maximum width for small screens */
+    min-width: 0; /* Remove the minimum width for small screens */
+    min-height: 0; /* Remove the minimum height for small screens */
+    max-height: none; /* Remove the maximum height for small screens */
   }
-  
+
+  .text-wrapper {
+    font-size: 20px; /* Adjust font size for better readability on smaller screens */
+  }
+}
+
+.box .login-bar {
+  height: 586px;
+  left: auto;
+  position: fixed;
+  top: auto;
+  min-width: 100px;
+  max-width: 512px;
+}
+
+.box .overlap {
+  -webkit-backdrop-filter: blur(112.71px) brightness(100%);
+  backdrop-filter: blur(112.71px) brightness(100%);
+  background-color: #7472722d;
+  border-radius: 45px;
+  box-shadow: inset -35.67px 35.67px 35.67px #ffffff2d,
+    inset 35.67px -35.67px 35.67px #a4a4a42d;
+  height: 586px;
+  position: relative;
+  width: 506px;
+}
+
+.box .text-wrapper {
+  color: #000000;
+  font-family: "Inria Sans-Bold", Helvetica;
+  font-size: 40px;
+  font-weight: 700;
+  left: 182px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 57px;
+  white-space: nowrap;
+}
+
+.box .email {
+  height: 70px;
+  left: 28px;
+  position: absolute;
+  top: 164px;
+  width: 452px;
+}
+
+.box .overlap-group {
+  -webkit-backdrop-filter: blur(34.67px) brightness(100%);
+  backdrop-filter: blur(34.67px) brightness(100%);
+  background-color: #0000001a;
+  border-radius: 20px;
+  box-shadow: inset -3.47px 3.47px 3.47px #ffffff66,
+    inset 3.47px -3.47px 3.47px #b6b6b666;
+  height: 70px;
+  position: relative;
+  width: 450px;
+}
+
+.box .div {
+  color: #0000004c;
+  font-family: "Inria Sans-Bold", Helvetica;
+  font-size: 20px;
+  font-weight: 700;
+  left: 37px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 23px;
+  white-space: nowrap;
+}
+
+.box .pass {
+  height: 70px;
+  left: 28px;
+  position: absolute;
+  top: 259px;
+  width: 452px;
+}
+
+.box .eye-off {
+  height: 20px;
+  left: 392px;
+  position: absolute;
+  top: 27px;
+  width: 20px;
+}
+
+.box .sign-in {
+  height: 43px;
+  left: 181px;
+  position: absolute;
+  top: 354px;
+  width: 147px;
+}
+
+.box .div-wrapper {
+  -webkit-backdrop-filter: blur(34.67px) brightness(100%);
+  backdrop-filter: blur(34.67px) brightness(100%);
+  background-color: #34a853;
+  border-radius: 20px;
+  box-shadow: inset -3.47px 3.47px 3.47px #ffffff66,
+    inset 3.47px -3.47px 3.47px #b6b6b666;
+  height: 43px;
+  position: relative;
+  width: 145px;
+}
+
+.box .text-wrapper-2 {
+  color: #0000004c;
+  font-family: "Inria Sans-Bold", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 44px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 13px;
+  white-space: nowrap;
+  width: 58px;
+}
+
+.box .facebook {
+  height: 60px;
+  left: 253px;
+  position: absolute;
+  top: 438px;
+  width: 60px;
+}
+
+.box .subtract {
+  height: 30px;
+  left: 22px;
+  position: absolute;
+  top: 15px;
+  width: 16px;
+}
+
+.box .google {
+  height: 60px;
+  left: 193px;
+  position: absolute;
+  top: 438px;
+  width: 60px;
+}
+
+.box .text-wrapper-3 {
+  color: #337fffcc;
+  font-family: "Inria Sans-Bold", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 227px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  text-decoration: underline;
+  top: 411px;
+  white-space: nowrap;
+}
+
+.box .text-wrapper-4 {
+  color: #0000004c;
+  font-family: "Inria Sans-Bold", Helvetica;
+  font-size: 16px;
+  font-weight: 700;
+  left: 50px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  text-decoration: underline;
+  top: 335px;
+  white-space: nowrap;
+}

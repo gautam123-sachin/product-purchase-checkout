@@ -13,11 +13,16 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import LoginIcon from "@mui/icons-material/Login";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSelector } from "react-redux";
+
 import { APP_NAME } from "../../constants";
 
 import { selectIsAuthenticated } from "../../context/slices/authSlices";
+
+import "./common.css";
 
 function Header() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -35,16 +40,32 @@ function Header() {
         { to: "/", label: "Home" },
         { to: "/product-list", label: "Product List" },
         { to: "/checkout", label: "cart" },
-        { to: "/cart", label: <ShoppingCartIcon /> },
-        { to: "/profile", label: "Profile" }, // Change to the user profile link
+        {
+          to: "/cart",
+          label: (
+            <>
+              <ShoppingCartIcon />
+              <span style={{ color: "red" }}>0</span>
+            </>
+          ),
+        },
+        { to: "/profile", label: <AccountCircleIcon /> }, // Change to the user profile link
       ];
     } else {
       return [
         { to: "/", label: "Home" },
         { to: "/product-list", label: "Product List" },
         { to: "/checkout", label: "cart" },
-        { to: "/cart", label: <ShoppingCartIcon /> },
-        { to: "/login", label: "Login" },
+        {
+          to: "/cart",
+          label: (
+            <>
+              <ShoppingCartIcon />
+              <span className="cart-count">0</span>
+            </>
+          ),
+        },
+        { to: "/login", label: <LoginIcon /> },
       ];
     }
   };
