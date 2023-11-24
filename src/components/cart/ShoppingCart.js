@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -7,22 +7,49 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import AddIcon from "@material-ui/icons/Add";
-import MinusIcon from "@material-ui/icons/Remove";
+
 import CreditCardForm from "./CreditCardForm";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { useNavigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCartItems,
   incrementQuantity,
   decrementQuantity,
+  deleteItems
 } from "../../context/slices/cartSlice";
+import ShoppingCartItems from './ShoppingCartItems';
 
 const ShoppingCart = () => {
+  const [subTotal, setSubtotal] = useState(0);
+  const [shipping, setShipping] = useState(0);
+  const [total, setTotal] = useState(0);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
+
+  useEffect(() => {
+    const calculateSubtotal = () => {
+      const Subtotal = cartItems.reduce(
+        (accumulator, item) => accumulator + item.price * item.quantity,
+        0
+      );
+      setSubtotal(Subtotal);
+    };
+    calculateSubtotal();
+  }, [cartItems]);
+
+  useEffect(() => {
+    const calculateShippingAndTotal = () => {
+      const shipping = 10;
+      const calculateShipping = cartItems.length > 0 ? shipping : 0;
+      const calculatedTotal = subTotal + calculateShipping;
+      setShipping(calculateShipping);
+      setTotal(calculatedTotal);
+    };
+    calculateShippingAndTotal();
+  }, [subTotal, cartItems])
 
   const handleIncrement = (id) => {
     dispatch(incrementQuantity({ id }));
@@ -31,6 +58,16 @@ const ShoppingCart = () => {
   const handleDecrement = (id) => {
     dispatch(decrementQuantity({ id }));
   };
+  const handleDelete = (id) => {
+    console.log(id);
+    dispatch(deleteItems({ id }));
+  }
+
+const handleCheckout = () => {
+  console.log('Checkout button clicked', cartItems);
+  navigate('/checkouts');
+
+}
 
   return (
     <Container py={5} style={{ marginTop: "70px" }}>
@@ -45,73 +82,12 @@ const ShoppingCart = () => {
               <hr width="98%" />
 
               {/* Shopping cart items */}
-              <Grid item xs={12}>
-                <Typography variant="body1">Shopping cart</Typography>
-                <Typography variant="body2">
-                  You have {cartItems.length} items in your cart
-                </Typography>
-
-                {/* Individual item */}
-                {cartItems.map((item) => (
-                  <Card
-                    style={{ backgroundColor: "#d3cdc3", marginTop: "10px" }}
-                    key={item.id}
-                  >
-                    <CardContent>
-                      <Grid container justifyContent="space-between">
-                        <Grid container item xs={8} alignItems="center">
-                          <img
-                            src={item.image}
-                            className="img-fluid rounded-3"
-                            alt="Shopping item"
-                            style={{ width: "65px", borderRadius: "5px" }}
-                          />
-                          <div className="ms-3" style={{ marginLeft: "15px" }}>
-                            <Typography
-                              variant="h5"
-                              style={{ fontSize: "20px" }}
-                            >
-                              {item.name}
-                            </Typography>
-                          </div>
-                          <Typography
-                            variant="h5"
-                            className="fw-normal mb-0"
-                            style={{ marginLeft: "70px", fontSize: "20px" }}
-                          >
-                            <IconButton
-                              onClick={() => handleDecrement(item.id)}
-                            >
-                              <MinusIcon />
-                            </IconButton>
-                            {item.quantity > 0 ? item.quantity : 0}
-                            <IconButton
-                              onClick={() => handleIncrement(item.id)}
-                              style={{ fontSize: "20px" }}
-                            >
-                              <AddIcon />
-                            </IconButton>
-                          </Typography>
-                        </Grid>
-                        <Grid container item xs={4} alignItems="center">
-                          <Typography
-                            variant="h5"
-                            className="mb-0"
-                            style={{ width: "80px", fontSize: "20px" }}
-                          >
-                            ${item.price}
-                          </Typography>
-                          <DeleteOutlinedIcon
-                            style={{ marginLeft: "60px", fontSize: "20px" }}
-                          />
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                  </Card>
-                ))}
-
-                {/* Repeat the above Card component for each item in the cart */}
-              </Grid>
+              <ShoppingCartItems
+                cartItems={cartItems}
+                handleDecrement={handleDecrement}
+                handleIncrement={handleIncrement}
+                handleDelete={handleDelete}
+              />
             </CardContent>
           </Card>
         </Grid>
@@ -147,31 +123,42 @@ const ShoppingCart = () => {
                   <Typography variant="body2" style={{ marginBottom: "10px" }}>
                     Subtotal
                   </Typography>
-                  <Typography variant="body2">--</Typography>
+                  <Typography variant="body2">${subTotal ? subTotal.toFixed(2) : '--'}</Typography>
                 </Grid>
                 <Grid container justifyContent="space-between">
                   <Typography variant="body2" style={{ marginBottom: "10px" }}>
                     Shipping
                   </Typography>
-                  <Typography variant="body2">--</Typography>
+                  <Typography variant="body2">${shipping ? shipping.toFixed(2) : '--'}</Typography>
                 </Grid>
                 <Grid container justifyContent="space-between">
                   <Typography variant="body2" style={{ marginBottom: "10px" }}>
                     Total
                   </Typography>
-                  <Typography variant="body2">--</Typography>
+                  <Typography variant="body2">{total ? total.toFixed(2) : '--'}</Typography>
                 </Grid>
-                {/* Repeat the above for Shipping and Total */}
 
                 {/* Checkout button */}
-                <Button variant="contained" color="info" size="large" fullWidth>
-                  <Grid container justifyContent="space-between">
-                    <span>$4818.00</span>
-                    <span>
-                      Checkout{" "}
-                      <i className="fas fa-long-arrow-alt-right ms-2" />
-                    </span>
-                  </Grid>
+                <Button
+                  size="large"
+                  fullWidth
+                  style={{
+                    marginTop: "10px",
+                    height: '50px',
+                    backgroundColor: '#0288d1',
+                    color: 'white',
+                    borderRadius: '5px',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    fontSize: '20px',
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)'
+                  }}
+                  onClick={handleCheckout}
+                  >
+                  Checkout
                 </Button>
               </form>
             </CardContent>
