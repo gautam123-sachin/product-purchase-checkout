@@ -9,25 +9,33 @@ import {
 } from "@mui/material";
 
 import CreditCardForm from "./CreditCardForm";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCartItems,
   incrementQuantity,
   decrementQuantity,
-  deleteItems
+  deleteItems,
+  selectUserCardInfo,
 } from "../../context/slices/cartSlice";
-import ShoppingCartItems from './ShoppingCartItems';
+import ShoppingCartItems from "./ShoppingCartItems";
 
 const ShoppingCart = () => {
   const [subTotal, setSubtotal] = useState(0);
   const [shipping, setShipping] = useState(0);
   const [total, setTotal] = useState(0);
+  const [errors, setErrors] = useState({
+    name: "",
+    number: "",
+    expiry: "",
+    cvc: "",
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
+  const userCardInfo = useSelector(selectUserCardInfo);
 
   useEffect(() => {
     const calculateSubtotal = () => {
@@ -49,7 +57,7 @@ const ShoppingCart = () => {
       setTotal(calculatedTotal);
     };
     calculateShippingAndTotal();
-  }, [subTotal, cartItems])
+  }, [subTotal, cartItems]);
 
   const handleIncrement = (id) => {
     dispatch(incrementQuantity({ id }));
@@ -61,13 +69,44 @@ const ShoppingCart = () => {
   const handleDelete = (id) => {
     console.log(id);
     dispatch(deleteItems({ id }));
-  }
+  };
 
-const handleCheckout = () => {
-  console.log('Checkout button clicked', cartItems);
-  navigate('/checkouts');
+  const handleCheckout = () => {
+    console.log("userCardInfo", userCardInfo);
+    const isValid = handleValidation();
+    if (isValid) {
+      navigate("/checkouts");
+    }
+  };
 
-}
+  const handleValidation = () => {
+    let valid = true;
+    const newErrors = { name: "", number: "", expiry: "", cvc: "" };
+    const { name, number, expiry, cvc } = userCardInfo;
+
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+      valid = false;
+    }
+
+    if (!/^\d{16}$/.test(number)) {
+      newErrors.number = "Invalid card number";
+      valid = false;
+    }
+
+    if (!/^\d{4}-\d{2}$/.test(expiry)) {
+      newErrors.expiry = "Invalid expiry date (use MM-YYYY format)";
+      valid = false;
+    }
+
+    if (!/^\d{3}$/.test(cvc)) {
+      newErrors.cvc = "Invalid CVV";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
 
   return (
     <Container py={5} style={{ marginTop: "70px" }}>
@@ -116,26 +155,32 @@ const handleCheckout = () => {
 
               {/* Form for card details */}
               <form>
-                <CreditCardForm />
+                <CreditCardForm userCardInfo={userCardInfo} errors={errors} />
 
                 {/* Subtotal, Shipping, and Total */}
                 <Grid container justifyContent="space-between">
                   <Typography variant="body2" style={{ marginBottom: "10px" }}>
                     Subtotal
                   </Typography>
-                  <Typography variant="body2">${subTotal ? subTotal.toFixed(2) : '--'}</Typography>
+                  <Typography variant="body2">
+                    ${subTotal ? subTotal.toFixed(2) : "--"}
+                  </Typography>
                 </Grid>
                 <Grid container justifyContent="space-between">
                   <Typography variant="body2" style={{ marginBottom: "10px" }}>
                     Shipping
                   </Typography>
-                  <Typography variant="body2">${shipping ? shipping.toFixed(2) : '--'}</Typography>
+                  <Typography variant="body2">
+                    ${shipping ? shipping.toFixed(2) : "--"}
+                  </Typography>
                 </Grid>
                 <Grid container justifyContent="space-between">
                   <Typography variant="body2" style={{ marginBottom: "10px" }}>
                     Total
                   </Typography>
-                  <Typography variant="body2">{total ? total.toFixed(2) : '--'}</Typography>
+                  <Typography variant="body2">
+                    {total ? total.toFixed(2) : "--"}
+                  </Typography>
                 </Grid>
 
                 {/* Checkout button */}
@@ -144,20 +189,22 @@ const handleCheckout = () => {
                   fullWidth
                   style={{
                     marginTop: "10px",
-                    height: '50px',
-                    backgroundColor: '#0288d1',
-                    color: 'white',
-                    borderRadius: '5px',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    display: 'flex',
-                    fontSize: '20px',
-                    fontWeight: 'bold',
-                    textTransform: 'none',
-                    boxShadow: '0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)'
+                    height: "50px",
+                    backgroundColor: "#0288d1",
+                    color: "white",
+                    borderRadius: "5px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    textTransform: "none",
+                    boxShadow:
+                      "0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)",
                   }}
                   onClick={handleCheckout}
-                  >
+                  disabled={!cartItems.length}
+                >
                   Checkout
                 </Button>
               </form>

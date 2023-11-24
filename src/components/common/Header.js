@@ -21,9 +21,7 @@ import { useSelector } from "react-redux";
 import { APP_NAME } from "../../constants";
 
 import { selectIsAuthenticated } from "../../context/slices/authSlices";
-import {
-  selectCartItems,
-} from "../../context/slices/cartSlice";
+import { selectCartItems } from "../../context/slices/cartSlice";
 
 import "./common.css";
 
@@ -32,7 +30,7 @@ function Header() {
 
   const cartItems = useSelector(selectCartItems);
   const isAuthenticated = useSelector(selectIsAuthenticated);
- 
+
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
@@ -41,15 +39,15 @@ function Header() {
     if (isAuthenticated) {
       return [
         { to: "/", label: "Home" },
-        { to: "/product-list", label: "Product List" },
+        { to: "/products", label: "Products" },
         { to: "/checkout", label: "cart" },
         {
           to: "/cart",
           label: (
             <>
-            <ShoppingCartIcon />
-            <span className="cart-count">{cartItems.length}</span>
-          </>
+              <ShoppingCartIcon />
+              <span className="cart-count">{cartItems.length}</span>
+            </>
           ),
         },
         { to: "/profile", label: <AccountCircleIcon /> }, // Change to the user profile link

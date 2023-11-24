@@ -1,14 +1,19 @@
-import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import MinusIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
+import React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import MinusIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
 
-const ShoppingCartItems = ({ cartItems, handleDecrement, handleIncrement, handleDelete }) => {
+const ShoppingCartItems = ({
+  cartItems,
+  handleDecrement,
+  handleIncrement,
+  handleDelete,
+}) => {
   return (
     <Grid item xs={12}>
       <Typography variant="body1">Shopping cart</Typography>
@@ -32,10 +37,7 @@ const ShoppingCartItems = ({ cartItems, handleDecrement, handleIncrement, handle
                   style={{ width: "65px", borderRadius: "5px" }}
                 />
                 <div className="ms-3" style={{ marginLeft: "15px" }}>
-                  <Typography
-                    variant="h5"
-                    style={{ fontSize: "20px" }}
-                  >
+                  <Typography variant="h5" style={{ fontSize: "20px" }}>
                     {item.name}
                   </Typography>
                 </div>
@@ -44,9 +46,7 @@ const ShoppingCartItems = ({ cartItems, handleDecrement, handleIncrement, handle
                   className="fw-normal mb-0"
                   style={{ marginLeft: "70px", fontSize: "20px" }}
                 >
-                  <IconButton
-                    onClick={() => handleDecrement(item.id)}
-                  >
+                  <IconButton onClick={() => handleDecrement(item.id)}>
                     <MinusIcon />
                   </IconButton>
                   {item.quantity > 0 ? item.quantity : 0}
@@ -64,10 +64,17 @@ const ShoppingCartItems = ({ cartItems, handleDecrement, handleIncrement, handle
                   className="mb-0"
                   style={{ width: "80px", fontSize: "20px" }}
                 >
-                 ${item.quantity > 0 ?Number((item.price * item.quantity).toFixed(2)): 0}
+                  $
+                  {item.quantity > 0
+                    ? Number((item.price * item.quantity).toFixed(2))
+                    : 0}
                 </Typography>
                 <DeleteOutlinedIcon
-                  style={{ marginLeft: "60px", fontSize: "20px", cursor: "pointer" }}
+                  style={{
+                    marginLeft: "60px",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                  }}
                   onClick={() => handleDelete(item.id)}
                 />
               </Grid>

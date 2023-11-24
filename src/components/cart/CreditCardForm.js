@@ -1,41 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Grid } from "@mui/material";
+import { userCardInfo } from "../../context/slices/cartSlice";
+import { useDispatch } from "react-redux";
+import InputMask from "react-input-mask";
 
-const CreditCardForm = () => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [bankInfo, setBankInfo] = useState(null);
+const CreditCardForm = ({ errors }) => {
+  const [cardInfo, setCardInfo] = useState({
+    name: "",
+    number: "",
+    expiry: "",
+    cvc: "",
+  });
 
-  const handleCardNumberChange = async (e) => {
-    const newCardNumber = e.target.value;
-    setCardNumber(newCardNumber);
+  const dispatch = useDispatch();
 
-    try {
-      const response = await fetch(
-        `https://api.apilayer.com/bincheck/${newCardNumber.slice(0, 6)}`,
-        {
-          method: "GET",
-          headers: {
-            apikey: "Elm8gqfDkbYVZtvN0NTV5uAs63EKBdos",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const result = await response.text();
-
-      console.log(result);
-
-      const parsedResult = JSON.parse(result);
-      console.log(parsedResult);
-      setBankInfo(parsedResult);
-    } catch (error) {
-      console.error("Error fetching bank information:", error);
-    }
+  const handleNameChange = (e) => {
+    const newName = e.target.value;
+    setCardInfo({ ...cardInfo, name: newName });
   };
-  console.log("bankInfo", bankInfo);
+  const handleCardNumberChange = (e) => {
+    let newCardNumber = e.target.value;
+    newCardNumber = newCardNumber.slice(0, 16);
+    setCardInfo({ ...cardInfo, number: newCardNumber });
+  };
+
+  const handleExpiryChange = (e) => {
+    const newExpiry = e.target.value;
+    setCardInfo({ ...cardInfo, expiry: newExpiry });
+  };
+
+  const handleCvcChange = (e) => {
+    const newCvc = e.target.value;
+    setCardInfo({ ...cardInfo, cvc: newCvc });
+  };
+
+  useEffect(() => {
+    dispatch(userCardInfo(cardInfo));
+  }, [cardInfo, dispatch]);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -45,6 +47,10 @@ const CreditCardForm = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          value={cardInfo.name}
+          onChange={handleNameChange}
+          error={Boolean(errors.name)}
+          helperText={errors.name}
         />
       </Grid>
       <Grid item xs={12}>
@@ -54,8 +60,12 @@ const CreditCardForm = () => {
           variant="outlined"
           fullWidth
           margin="normal"
-          value={cardNumber}
+          value={cardInfo.number}
           onChange={handleCardNumberChange}
+          error={Boolean(errors.number)}
+          helperText={errors.number}
+          inputComponent={InputMask}
+          inputProps={{ mask: "9999 9999 9999 9999" }}
         />
       </Grid>
       <Grid item xs={6}>
@@ -65,6 +75,10 @@ const CreditCardForm = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          value={cardInfo.expiry}
+          onChange={handleExpiryChange}
+          error={Boolean(errors.expiry)}
+          helperText={errors.expiry}
         />
       </Grid>
       <Grid item xs={6}>
@@ -74,6 +88,10 @@ const CreditCardForm = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          value={cardInfo.cvc}
+          onChange={handleCvcChange}
+          error={Boolean(errors.cvc)}
+          helperText={errors.cvc}
         />
       </Grid>
     </Grid>

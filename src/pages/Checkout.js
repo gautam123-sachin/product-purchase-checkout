@@ -11,11 +11,16 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { selectUserCardInfo } from "../context/slices/cartSlice";
 
 const Checkout = () => {
+  const userCardInfo = useSelector(selectUserCardInfo);
+  const { number, expiry, cvc } = userCardInfo;
   return (
     <Container py={5}>
-      <Grid container justifyContent="center">
+      <Grid container justifyContent="center" style={{ marginTop: "70px" }}>
         <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
@@ -100,6 +105,7 @@ const Checkout = () => {
                       name="cardNumber"
                       label="Card Number"
                       fullWidth
+                      value={number}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -109,6 +115,7 @@ const Checkout = () => {
                       name="expDate"
                       label="Expiry Date"
                       fullWidth
+                      value={expiry}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -118,16 +125,11 @@ const Checkout = () => {
                       name="cvv"
                       label="CVV"
                       fullWidth
+                      value={cvc}
                     />
                   </Grid>
                 </Grid>
               </form>
-
-              {/* Order Summary */}
-              <Typography variant="h6" gutterBottom>
-                Order Summary
-              </Typography>
-              {/* Display order summary information here */}
 
               {/* Complete Order Button */}
               <Button
@@ -135,6 +137,7 @@ const Checkout = () => {
                 color="primary"
                 size="large"
                 fullWidth
+                style={{ marginTop: "20px" }}
               >
                 Complete Order
               </Button>
